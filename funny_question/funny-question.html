@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Question!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Page 1: Question -->
+    <div id="page1" class="page active">
+        <h1>Will you go on a date with me? 💖</h1>
+        <div class="buttons-container">
+            <button id="yesBtn">YES!</button>
+            <button id="noBtn"><span id="noEmoji">😰</span> No</button>
+        </div>
+    </div>
+
+    <!-- Page 2: Form -->
+    <div id="page2" class="page">
+        <h2>Yay! Let's plan our date! 🎉</h2>
+        <div class="form-container">
+            <form id="dateForm">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="place">Place:</label>
+                    <input type="text" id="place" name="place" placeholder="Where should we meet?" required>
+                </div>
+                <button type="submit" class="submit-btn">Continue → <span id="continueEmoji"></span></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Page 3: Confirmation -->
+    <div id="page3" class="page">
+        <div class="success-celebration">
+            <div class="celebration-emoji">🎉 💖 🎊</div>
+            <h2>She Said YES!! 🥳</h2>
+            <p class="celebration-text">Here are the details:</p>
+        </div>
+        <div class="confirmation-box">
+            <div class="detail-row">
+                <span class="detail-label">📅 Date:</span>
+                <span class="detail-value" id="confirmDate"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">⏰ Time:</span>
+                <span class="detail-value" id="confirmTime"></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">📍 Place:</span>
+                <span class="detail-value" id="confirmPlace"></span>
+            </div>
+            <p class="email-sent-message">📧 Email notification sent!</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

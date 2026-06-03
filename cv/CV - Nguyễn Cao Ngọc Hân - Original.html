@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Nguyễn Cao Ngọc Hân (Bản gốc)</title>
+    <style>
+        @page {
+            margin: 0;
+            size: A4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+
+        .nav-bar {
+            background: linear-gradient(135deg, #1a9ba5 0%, #2ba8b3 100%);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: white;
+            color: #1a9ba5;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn.active {
+            background: #1a9ba5;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .container {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+        }
+
+        .left-column {
+            background: linear-gradient(135deg, #1a9ba5 0%, #2ba8b3 100%);
+            color: white;
+            padding: 40px 30px;
+            width: 40%;
+        }
+
+        .right-column {
+            padding: 40px 35px;
+            width: 60%;
+            background: #f8f9fa;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 20px auto 30px;
+            background: white;
+            border: 5px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #1a9ba5;
+            font-weight: bold;
+        }
+
+        .name {
+            font-size: 42px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-info {
+            margin: 30px 0;
+        }
+
+        .contact-item {
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-start;
+            word-break: break-word;
+        }
+
+        .contact-icon {
+            margin-right: 10px;
+            font-size: 20px;
+            min-width: 25px;
+        }
+
+        .section {
+            margin: 30px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .right-column .section-title {
+            color: #1a9ba5;
+            border-bottom: 3px solid #1a9ba5;
+        }
+
+        .experience-item, .education-item {
+            margin: 20px 0;
+            padding-left: 0;
+        }
+
+        .experience-header {
+            font-weight: bold;
+            color: #1a9ba5;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .experience-date {
+            color: #666;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .experience-description {
+            margin: 8px 0;
+            padding-left: 0;
+        }
+
+        .experience-description li {
+            margin: 5px 0 5px 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            margin: 10px 0;
+            padding-left: 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .skills-category {
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .profile-text {
+            font-size: 14px;
+            text-align: justify;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .availability {
+            background: rgba(255,255,255,0.15);
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .availability strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @media print {
+            .nav-bar {
+                display: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-buttons">
+            <a href="CV - Nguyễn Cao Ngọc Hân - Index.html" class="nav-btn">🏠 Accueil</a>
+            <a href="CV - Nguyễn Cao Ngọc Hân - Original.html" class="nav-btn active">🇻🇳 Version Originale</a>
+            <a href="CV - Nguyễn Cao Ngọc Hân - Français.html" class="nav-btn">🇫🇷 Version Française</a>
+            <a href="CV - Nguyễn Cao Ngọc Hân - Amélioré.html" class="nav-btn">⭐ Version Améliorée</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-column">
+            <h1 class="name">CAO NGỌC HÂN<br>NGUYỄN</h1>
+
+            <div class="profile-photo">HN</div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span>07 59 17 80 24</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <span>hanelia.nguyen2445@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>43 Avenue de La République, Choisy-le-Roi</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">💼</span>
+                    <span style="font-size: 11px;">linkedin.com/in/cao-ngọc-hân-nguyễn-112a373a3</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">SKILLS</h2>
+                <ul class="skills-list">
+                    <li class="skills-category">Soft Skills :</li>
+                    <li>Quản lý thời gian</li>
+                    <li>Làm việc nhóm</li>
+                    <li>Tư duy và xử lý tình huống</li>
+                    <li>Học hỏi nhanh</li>
+                    <li>Nhanh nhẹn</li>
+                    <li>Hướng ngoại</li>
+
+                    <li class="skills-category" style="margin-top: 20px;">Ngôn ngữ :</li>
+                    <li>Tiếng Việt (bản xứ)</li>
+                    <li>Tiếng Anh (giao tiếp trôi chảy)</li>
+                    <li>Tiếng Pháp (giao tiếp cơ bản)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="section">
+                <h2 class="section-title">PROFILE</h2>
+                <p class="profile-text">
+                    Em hiện là một sinh viên người Việt Nam hiện đang sinh sống và học tập tại Pháp, chuyên ngành Thiết kế Thời trang tại IFA Paris. Em đã được học kỹ năng giao tiếp và chăm sóc khách hàng, có khả năng làm việc nhóm hiệu quả và học hỏi nhanh. Ngoài ra, em có thể giao tiếp tiếng Anh tốt và có thể giao tiếp cơ bản về tiếng Pháp. Em là người thân thiện, có trách nhiệm, năng động và luôn ham học hỏi để phát triển bản thân.
+                </p>
+                <div class="availability">
+                    <strong>Thời gian làm việc:</strong>
+                    • 1/6-12/6 : sau 18h30 và cuối tuần<br>
+                    • Sau 12/6 : có thể làm cả ngày và tất cả ngày trong tuần
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">EDUCATION</h2>
+
+                <div class="education-item">
+                    <div class="experience-date">2025 - nay</div>
+                    <div class="experience-header">Học Cử nhân thiết kế thời trang (IFA PARIS)</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="experience-date">2023 - 2024</div>
+                    <div class="experience-header">Học chuyên ngành quản lý xây dựng</div>
+                    <div>Đại học kiến trúc TP HCM</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="experience-date">2023</div>
+                    <div class="experience-header">Tốt nghiệp Trung học phổ thông Nguyễn Văn Côn</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">EXPERIENCE</h2>
+
+                <div class="experience-item">
+                    <div class="experience-date">09/2023 – 04/2024</div>
+                    <div class="experience-header">Nhân viên phục vụ – Dairy Queen Vietnam</div>
+                    <ul class="experience-description">
+                        <li>Phục vụ khách hàng với thái độ thân thiện, chuyên nghiệp trong môi trường làm việc năng động và nhịp độ cao</li>
+                        <li>Ghi nhận và phục vụ món chính xác, nhanh chóng, đồng thời hỗ trợ khách hàng lựa chọn sản phẩm phù hợp với nhu cầu</li>
+                        <li>Xử lý các yêu cầu của khách một cách nhanh chóng và hiệu quả để mang lại trải nghiệm hài lòng và tích cực</li>
+                        <li>Đảm bảo vệ sinh và tiêu chuẩn an toàn trong khu vực phục vụ và ăn uống theo quy định của cửa hàng</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">2024 – 2025</div>
+                    <div class="experience-header">Thu ngân – Lotte Cinema Vietnam</div>
+                    <ul class="experience-description">
+                        <li>Thực hiện thanh toán vé xem phim và quầy đồ ăn nhanh một cách chính xác, nhanh chóng và chuyên nghiệp</li>
+                        <li>Hỗ trợ khách hàng trong việc mua vé, giải đáp thông tin về sản phẩm, chương trình khuyến mãi và dịch vụ</li>
+                        <li>Làm việc nhanh nhẹn và hiệu quả trong môi trường đông khách, đặc biệt vào các khung giờ cao điểm và cuối tuần</li>
+                        <li>Phát triển kỹ năng mềm linh hoạt, giải quyết vấn đề và giữ thái độ bình tĩnh dưới áp lực công việc</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">2025 - nay</div>
+                    <div class="experience-header">Thành viên ban truyền thông của UEVF</div>
+                    <div style="font-size: 13px; font-style: italic; margin-top: 3px;">(Hội thanh niên sinh viên Việt Nam tại Pháp)</div>
+                    <ul class="experience-description">
+                        <li>Thiết kế bài viết, logo, áp phích cho các sự kiện</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

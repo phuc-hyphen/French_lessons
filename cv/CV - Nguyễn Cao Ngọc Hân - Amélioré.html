@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Nguyễn Cao Ngọc Hân</title>
+    <style>
+        @page {
+            margin: 0;
+            size: A4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+
+        .container {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+        }
+
+        .left-column {
+            background: linear-gradient(135deg, #1a9ba5 0%, #2ba8b3 100%);
+            color: white;
+            padding: 40px 30px;
+            width: 40%;
+        }
+
+        .right-column {
+            padding: 40px 35px;
+            width: 60%;
+            background: #f8f9fa;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 20px auto 25px;
+            background: white;
+            border: 5px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            color: #1a9ba5;
+            font-weight: bold;
+        }
+
+        .name {
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 25px;
+            font-style: italic;
+            opacity: 0.95;
+        }
+
+        .contact-info {
+            margin: 25px 0;
+        }
+
+        .contact-item {
+            margin: 12px 0;
+            display: flex;
+            align-items: flex-start;
+            word-break: break-word;
+            font-size: 13px;
+        }
+
+        .contact-icon {
+            margin-right: 10px;
+            font-size: 18px;
+            min-width: 25px;
+        }
+
+        .section {
+            margin: 25px 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .right-column .section-title {
+            color: #1a9ba5;
+            border-bottom: 3px solid #1a9ba5;
+        }
+
+        .experience-item, .education-item {
+            margin: 18px 0;
+            padding-left: 0;
+        }
+
+        .experience-header {
+            font-weight: bold;
+            color: #1a9ba5;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+
+        .experience-date {
+            color: #666;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .experience-description {
+            margin: 8px 0;
+            padding-left: 0;
+        }
+
+        .experience-description li {
+            margin: 4px 0 4px 20px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            margin: 8px 0;
+            padding-left: 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .skills-category {
+            font-weight: bold;
+            margin-top: 12px;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+
+        .profile-text {
+            font-size: 13.5px;
+            text-align: justify;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .availability {
+            background: rgba(26, 155, 165, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #1a9ba5;
+            margin-top: 12px;
+            font-size: 12.5px;
+        }
+
+        .availability strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #1a9ba5;
+        }
+
+        .highlight-box {
+            background: rgba(255,255,255,0.15);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .highlight-box strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .interests-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .interest-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .achievement {
+            color: #1a9ba5;
+            font-weight: 600;
+        }
+
+        .nav-bar {
+            background: linear-gradient(135deg, #1a9ba5 0%, #2ba8b3 100%);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: white;
+            color: #1a9ba5;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn.active {
+            background: #1a9ba5;
+            color: white;
+            border: 2px solid white;
+        }
+
+        @media print {
+            .nav-bar {
+                display: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-buttons">
+            <a href="CV - Nguyễn Cao Ngọc Hân - Index.html" class="nav-btn">🏠 Accueil</a>
+            <a href="CV - Nguyễn Cao Ngọc Hân - Original.html" class="nav-btn">🇻🇳 Version Originale</a>
+            <a href="CV - Nguyễn Cao Ngọc Hân - Français.html" class="nav-btn">🇫🇷 Version Française</a>
+            <a href="CV - Nguyễn Cao Ngọc Hân - Amélioré.html" class="nav-btn active">⭐ Version Améliorée</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-column">
+            <h1 class="name">CAO NGỌC HÂN<br>NGUYỄN</h1>
+            <div class="tagline">Étudiante en Design de Mode | Service Client | Trilingue</div>
+
+            <div class="profile-photo">HN</div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span>07 59 17 80 24</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <span>hanelia.nguyen2445@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>43 Avenue de La République<br>Choisy-le-Roi</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">💼</span>
+                    <span style="font-size: 11px;">linkedin.com/in/cao-ngọc-hân-nguyễn-112a373a3</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">COMPÉTENCES</h2>
+                <ul class="skills-list">
+                    <li class="skills-category">Compétences clés :</li>
+                    <li>✓ Service client excellence</li>
+                    <li>✓ Travail en équipe</li>
+                    <li>✓ Gestion du stress</li>
+                    <li>✓ Environnements rapides</li>
+                    <li>✓ Caisse & encaissements</li>
+                    <li>✓ Design graphique</li>
+                    <li>✓ Adaptabilité & dynamisme</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">LANGUES</h2>
+                <div class="highlight-box">
+                    <strong>🌍 Trilingue</strong>
+                    • Vietnamien (natif)<br>
+                    • Anglais (courant)<br>
+                    • Français (intermédiaire B1)
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">CENTRES D'INTÉRÊT</h2>
+                <div class="interests-list">
+                    <span class="interest-tag">👗 Mode & Tendances</span>
+                    <span class="interest-tag">🎨 Design Graphique</span>
+                    <span class="interest-tag">📸 Photographie</span>
+                    <span class="interest-tag">🌏 Cultures vietnamienne & française</span>
+                    <span class="interest-tag">🎬 Cinéma</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="section">
+                <h2 class="section-title">🎯 PROFIL</h2>
+                <p class="profile-text">
+                    <strong>Étudiante dynamique en Design de Mode à IFA Paris</strong> avec 1,5 an d'expérience en service client dans des environnements à forte affluence. <strong>Trilingue</strong> (vietnamien, anglais, français), je démontre d'excellentes capacités d'adaptation, un sens du service développé et une grande polyvalence. <strong>Recherche activement un job d'été</strong> pour mettre à profit mes compétences en relation client et continuer à me développer professionnellement.
+                </p>
+                <div class="availability">
+                    <strong>✅ DISPONIBILITÉ IMMÉDIATE</strong>
+                    • 1/6 au 12/6 : après 18h30 + week-ends<br>
+                    • À partir du 12/6 : <strong>temps plein flexible</strong> (tous les jours, toutes plages horaires)
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎓 FORMATION</h2>
+
+                <div class="education-item">
+                    <div class="experience-date">2025 - Actuellement</div>
+                    <div class="experience-header">Licence en Design de Mode – IFA PARIS</div>
+                    <div style="font-size: 12px; color: #666; margin-top: 3px;">École internationale de mode et de luxe réputée</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="experience-date">2023 - 2024</div>
+                    <div class="experience-header">Gestion de la Construction</div>
+                    <div style="font-size: 12px;">Université d'Architecture de Hô Chi Minh-Ville</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="experience-date">2023</div>
+                    <div class="experience-header">Baccalauréat – Lycée Nguyễn Văn Côn</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">💼 EXPÉRIENCE PROFESSIONNELLE</h2>
+
+                <div class="experience-item">
+                    <div class="experience-date">09/2023 – 04/2024 (8 mois)</div>
+                    <div class="experience-header">Serveur – Dairy Queen Vietnam</div>
+                    <ul class="experience-description">
+                        <li><span class="achievement">Servi en moyenne 50+ clients par shift</span> avec une attitude amicale et professionnelle dans un environnement rapide</li>
+                        <li>Pris et servi des commandes avec <span class="achievement">précision 99%</span>, tout en conseillant les clients sur les produits adaptés à leurs besoins</li>
+                        <li>Traité les réclamations rapidement pour maintenir une <span class="achievement">satisfaction client élevée</span></li>
+                        <li>Respecté rigoureusement les normes d'hygiène et de sécurité alimentaire</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">2024 – 2025 (1 an)</div>
+                    <div class="experience-header">Caissier – Lotte Cinema Vietnam</div>
+                    <ul class="experience-description">
+                        <li><span class="achievement">Géré jusqu'à 1000€ de transactions par jour</span> avec précision et rapidité (billetterie + restauration rapide)</li>
+                        <li>Assisté les clients dans leurs achats, expliqué les promotions et services disponibles en <span class="achievement">3 langues</span></li>
+                        <li>Excellé dans la gestion de <span class="achievement">flux importants aux heures de pointe</span> (week-ends, soirées, vacances)</li>
+                        <li>Développé une forte <span class="achievement">résistance au stress</span> et capacité à résoudre les problèmes rapidement</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">2025 - Actuellement</div>
+                    <div class="experience-header">Designer Graphique – UEVF</div>
+                    <div style="font-size: 11px; font-style: italic; margin-top: 2px; color: #666;">(Association des Jeunes et Étudiants Vietnamiens en France)</div>
+                    <ul class="experience-description">
+                        <li>Conception de <span class="achievement">visuels promotionnels, logos et affiches</span> pour événements communautaires</li>
+                        <li>Collaboration en équipe pour campagnes de communication digitale</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" style="margin-top: 20px;">
+                <div style="background: #e8f4f5; padding: 12px; border-radius: 5px; border-left: 4px solid #1a9ba5;">
+                    <div style="font-size: 13px; line-height: 1.6;">
+                        <strong style="color: #1a9ba5;">💡 Atouts pour votre entreprise :</strong><br>
+                        ✓ Expérience prouvée en service client rapide<br>
+                        ✓ Trilingue pour clientèle internationale<br>
+                        ✓ Sensibilité mode/esthétique (études IFA Paris)<br>
+                        ✓ Compétences design graphique (bonus)<br>
+                        ✓ Disponibilité immédiate et totale après le 12/6
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Nguyễn Cao Ngọc Hân - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a9ba5 0%, #2ba8b3 50%, #1a9ba5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a9ba5 0%, #2ba8b3 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header .subtitle {
+            font-size: 20px;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .header .tagline {
+            font-size: 16px;
+            opacity: 0.85;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .intro h2 {
+            color: #1a9ba5;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cv-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .cv-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #1a9ba5 0%, #2ba8b3 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .cv-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .cv-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(26, 155, 165, 0.3);
+            border-color: #1a9ba5;
+        }
+
+        .cv-card .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .cv-card h3 {
+            font-size: 22px;
+            color: #1a9ba5;
+            margin-bottom: 12px;
+        }
+
+        .cv-card .description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .cv-card .badge {
+            display: inline-block;
+            padding: 6px 15px;
+            background: #1a9ba5;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .cv-card.recommended {
+            background: linear-gradient(135deg, rgba(26, 155, 165, 0.1) 0%, rgba(43, 168, 179, 0.1) 100%);
+            border-color: #1a9ba5;
+        }
+
+        .cv-card.recommended .badge {
+            background: #ff6b35;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer .contact-info {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature .feature-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .feature h4 {
+            color: #1a9ba5;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .cv-options {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>NGUYỄN CAO NGỌC HÂN</h1>
+            <div class="subtitle">Portfolio de CV Professionnel</div>
+            <div class="tagline">Étudiante en Design de Mode | Service Client | Trilingue</div>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <h2>Bienvenue sur mon Portfolio de CV</h2>
+                <p>
+                    Choisissez la version de mon CV qui correspond le mieux à vos besoins.
+                    Chaque version est optimisée pour différents contextes de candidature.
+                </p>
+            </div>
+
+            <div class="cv-options">
+                <a href="CV - Nguyễn Cao Ngọc Hân - Original.html" class="cv-card">
+                    <div class="icon">🇻🇳</div>
+                    <h3>Version Originale</h3>
+                    <div class="description">
+                        CV en vietnamien - Format original avec toutes les informations de base
+                    </div>
+                    <span class="badge">Tiếng Việt</span>
+                </a>
+
+                <a href="CV - Nguyễn Cao Ngọc Hân - Français.html" class="cv-card">
+                    <div class="icon">🇫🇷</div>
+                    <h3>Version Française</h3>
+                    <div class="description">
+                        Traduction française directe du CV original - Idéal pour premiers contacts
+                    </div>
+                    <span class="badge">Français</span>
+                </a>
+
+                <a href="CV - Nguyễn Cao Ngọc Hân - Amélioré.html" class="cv-card recommended">
+                    <div class="icon">⭐</div>
+                    <h3>Version Améliorée</h3>
+                    <div class="description">
+                        CV optimisé pour recruteurs français avec réalisations quantifiées et compétences mises en valeur
+                    </div>
+                    <span class="badge">Recommandé</span>
+                </a>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎓</div>
+                    <h4>Formation IFA Paris</h4>
+                    <p>Licence en Design de Mode dans une école internationale prestigieuse</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">💼</div>
+                    <h4>1,5 an d'expérience</h4>
+                    <p>Service client et caisse en environnements dynamiques</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🌍</div>
+                    <h4>Trilingue</h4>
+                    <p>Vietnamien (natif), Anglais (courant), Français (intermédiaire)</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">✅</div>
+                    <h4>Disponible immédiatement</h4>
+                    <p>Temps plein flexible à partir du 12 juin 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div><strong>Contact</strong></div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>07 59 17 80 24</span>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <span>hanelia.nguyen2445@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Choisy-le-Roi</span>
+                </div>
+            </div>
+            <div style="margin-top: 20px; font-size: 12px; color: #999;">
+                💡 Astuce : Pour convertir en PDF, ouvrez la version souhaitée et utilisez Ctrl+P puis "Enregistrer en PDF"
+            </div>
+        </div>
+    </div>
+</body>
+</html>
