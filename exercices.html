@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices - Serveur/Caissière</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .nav-buttons a {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .nav-buttons a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-board h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .exercise {
+            background: #f8f9fa;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .exercise h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .question {
+            margin: 20px 0;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #e8eaf6;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .dialogue-exercise {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .dialogue-line {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .server-line {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .client-line {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .speaker {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .fill-blank {
+            margin: 20px 0;
+        }
+
+        .blank-input {
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .check-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .check-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .check-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .next-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .next-button.show {
+            display: inline-block;
+        }
+
+        .next-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .completion-message {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .completion-message.show {
+            display: block;
+        }
+
+        .completion-message h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .completion-message p {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✍️ Exercices Pratiques</h1>
+            <p>Testez vos connaissances</p>
+        </header>
+
+        <div class="nav-buttons">
+            <a href="cours.html">📖 Cours</a>
+            <a href="exercices.html">✍️ Exercices</a>
+            <a href="recap.html">📋 Récapitulatif</a>
+        </div>
+
+        <div class="content">
+            <div class="score-board">
+                <h2>📊 Votre Score</h2>
+                <div class="score">
+                    <span id="current-score">0</span> / <span id="total-score">10</span>
+                </div>
+            </div>
+
+            <!-- Exercise 1: QCM -->
+            <div class="exercise" data-exercise="1">
+                <h3>Exercice 1 : Questions à Choix Multiples</h3>
+
+                <div class="question" data-question="1" data-answer="a">
+                    <div class="question-text">1. Comment accueillir un client le soir ?</div>
+                    <div class="options">
+                        <div class="option" data-option="a">Bonsoir, bienvenue chez nous.</div>
+                        <div class="option" data-option="b">Salut ! Ça va ?</div>
+                        <div class="option" data-option="c">Bonjour, bienvenue !</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-question="2" data-answer="b">
+                    <div class="question-text">2. Que signifie "l'addition" ?</div>
+                    <div class="options">
+                        <div class="option" data-option="a">Le menu</div>
+                        <div class="option" data-option="b">Le ticket à payer</div>
+                        <div class="option" data-option="c">La réservation</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-question="3" data-answer="c">
+                    <div class="question-text">3. Comment demander le mode de paiement ?</div>
+                    <div class="options">
+                        <div class="option" data-option="a">Tu payes comment ?</div>
+                        <div class="option" data-option="b">Donnez-moi de l'argent.</div>
+                        <div class="option" data-option="c">Comment souhaitez-vous régler ?</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Compléter les phrases -->
+            <div class="exercise" data-exercise="2">
+                <h3>Exercice 2 : Complétez les phrases</h3>
+
+                <div class="fill-blank" data-question="4" data-answer="bienvenue">
+                    <div class="question-text">4. "Bonjour ! _________ !"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="5" data-answer="commander">
+                    <div class="question-text">5. "Êtes-vous prêts à _________ ?"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="6" data-answer="appétit">
+                    <div class="question-text">6. En servant un plat, on dit : "Bon _________ !"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="11" data-answer="addition">
+                    <div class="question-text">11. Pour demander la facture : "L'_________, s'il vous plaît."</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="12" data-answer="réservation">
+                    <div class="question-text">12. "Avez-vous une _________ ?"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="13" data-answer="désolé">
+                    <div class="question-text">13. Pour s'excuser : "Je suis _________, il y a une erreur."</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="14" data-answer="cuisson">
+                    <div class="question-text">14. "Quelle _________ pour votre steak ?"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="15" data-answer="monnaie">
+                    <div class="question-text">15. En rendant l'argent : "Voici votre _________, merci."</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="16" data-answer="suivez">
+                    <div class="question-text">16. Pour accompagner le client : "Parfait, ________-moi."</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="17" data-answer="boissons">
+                    <div class="question-text">17. "Que désirez-vous comme _________ ?"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="18" data-answer="carte">
+                    <div class="question-text">18. Pour donner le menu : "Voici la _________."</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="19" data-answer="journée">
+                    <div class="question-text">19. En fin de service : "Merci, bonne _________ !"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="fill-blank" data-question="20" data-answer="recommander">
+                    <div class="question-text">20. "Puis-je vous _________ notre spécialité ?"</div>
+                    <input type="text" class="blank-input" placeholder="Votre réponse...">
+                    <button class="check-button">Vérifier</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Dialogue -->
+            <div class="exercise" data-exercise="3">
+                <h3>Exercice 3 : Remettez le dialogue dans l'ordre</h3>
+                <p style="margin-bottom: 20px; font-style: italic;">Cliquez sur les phrases dans le bon ordre</p>
+
+                <div class="dialogue-exercise">
+                    <div class="dialogue-line server-line selectable-line" data-order="1" data-position="0">
+                        <div class="speaker">👨‍🍳 Serveur:</div>
+                        <div>"Bonjour ! Combien de personnes ?"</div>
+                    </div>
+                    <div class="dialogue-line client-line selectable-line" data-order="2" data-position="0">
+                        <div class="speaker">👤 Client:</div>
+                        <div>"Nous sommes quatre."</div>
+                    </div>
+                    <div class="dialogue-line server-line selectable-line" data-order="3" data-position="0">
+                        <div class="speaker">👨‍🍳 Serveur:</div>
+                        <div>"Parfait, suivez-moi. Voici votre table."</div>
+                    </div>
+                    <div class="dialogue-line server-line selectable-line" data-order="4" data-position="0">
+                        <div class="speaker">👨‍🍳 Serveur:</div>
+                        <div>"Je vous apporte les menus tout de suite."</div>
+                    </div>
+                </div>
+                <button class="check-button" id="check-dialogue">Vérifier l'ordre</button>
+                <div class="feedback" id="dialogue-feedback"></div>
+            </div>
+
+            <!-- Exercise 4: Situations -->
+            <div class="exercise" data-exercise="4">
+                <h3>Exercice 4 : Quelle phrase utiliser ?</h3>
+
+                <div class="question" data-question="7" data-answer="c">
+                    <div class="question-text">7. Un client a une allergie aux arachides. Que dites-vous ?</div>
+                    <div class="options">
+                        <div class="option" data-option="a">Tant pis pour vous.</div>
+                        <div class="option" data-option="b">Je ne sais pas.</div>
+                        <div class="option" data-option="c">Ce plat contient des arachides, nous pouvons préparer autre chose.</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-question="8" data-answer="a">
+                    <div class="question-text">8. Un plat n'est plus disponible. Comment l'annoncer ?</div>
+                    <div class="options">
+                        <div class="option" data-option="a">Je suis désolé(e), ce plat n'est plus disponible.</div>
+                        <div class="option" data-option="b">C'est fini, débrouillez-vous.</div>
+                        <div class="option" data-option="c">Il n'y en a plus, au revoir.</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-question="9" data-answer="b">
+                    <div class="question-text">9. Comment demander la cuisson de la viande ?</div>
+                    <div class="options">
+                        <div class="option" data-option="a">Tu veux comment ta viande ?</div>
+                        <div class="option" data-option="b">Quelle cuisson pour votre viande ?</div>
+                        <div class="option" data-option="c">Comment tu la veux ?</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-question="10" data-answer="c">
+                    <div class="question-text">10. Que dire en donnant le ticket de caisse ?</div>
+                    <div class="options">
+                        <div class="option" data-option="a">Prends ça.</div>
+                        <div class="option" data-option="b">Voilà, c'est tout.</div>
+                        <div class="option" data-option="c">Voici votre ticket. Merci et bonne journée !</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <div class="completion-message">
+                <h2>🎉 Félicitations !</h2>
+                <p>Vous avez terminé tous les exercices !</p>
+                <p style="margin-top: 15px;">Score final : <span id="final-score"></span>/10</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let answeredQuestions = new Set();
+        let dialogueClicks = [];
+
+        // QCM Handler
+        document.querySelectorAll('.question').forEach(question => {
+            const options = question.querySelectorAll('.option');
+            const correctAnswer = question.getAttribute('data-answer');
+            const questionNum = question.getAttribute('data-question');
+            const feedback = question.querySelector('.feedback');
+
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    if (answeredQuestions.has(questionNum)) return;
+
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+
+                    const selectedAnswer = this.getAttribute('data-option');
+
+                    if (selectedAnswer === correctAnswer) {
+                        this.classList.add('correct');
+                        feedback.textContent = '✅ Correct ! Bien joué !';
+                        feedback.classList.add('correct', 'show');
+                        if (!answeredQuestions.has(questionNum)) {
+                            score++;
+                            updateScore();
+                        }
+                    } else {
+                        this.classList.add('incorrect');
+                        feedback.textContent = '❌ Incorrect. Essayez encore !';
+                        feedback.classList.add('incorrect', 'show');
+                        options.forEach(opt => {
+                            if (opt.getAttribute('data-option') === correctAnswer) {
+                                opt.classList.add('correct');
+                            }
+                        });
+                    }
+
+                    answeredQuestions.add(questionNum);
+                    checkCompletion();
+                });
+            });
+        });
+
+        // Fill-in-the-blank Handler
+        document.querySelectorAll('.fill-blank').forEach(blank => {
+            const checkBtn = blank.querySelector('.check-button');
+            const input = blank.querySelector('.blank-input');
+            const correctAnswer = blank.getAttribute('data-answer').toLowerCase();
+            const questionNum = blank.getAttribute('data-question');
+            const feedback = blank.querySelector('.feedback');
+
+            checkBtn.addEventListener('click', function() {
+                if (answeredQuestions.has(questionNum)) return;
+
+                const userAnswer = input.value.trim().toLowerCase();
+
+                if (userAnswer === correctAnswer) {
+                    feedback.textContent = '✅ Excellent ! C\'est la bonne réponse !';
+                    feedback.classList.add('correct', 'show');
+                    input.style.borderColor = '#28a745';
+                    checkBtn.disabled = true;
+                    if (!answeredQuestions.has(questionNum)) {
+                        score++;
+                        updateScore();
+                    }
+                    answeredQuestions.add(questionNum);
+                } else {
+                    feedback.textContent = '❌ Pas tout à fait. La bonne réponse est : "' + blank.getAttribute('data-answer') + '"';
+                    feedback.classList.add('incorrect', 'show');
+                    input.style.borderColor = '#dc3545';
+                    answeredQuestions.add(questionNum);
+                }
+
+                checkCompletion();
+            });
+
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkBtn.click();
+                }
+            });
+        });
+
+        // Dialogue Order Handler
+        const dialogueLines = document.querySelectorAll('.selectable-line');
+        const checkDialogueBtn = document.getElementById('check-dialogue');
+        const dialogueFeedback = document.getElementById('dialogue-feedback');
+        let dialogueOrder = [];
+
+        dialogueLines.forEach(line => {
+            line.addEventListener('click', function() {
+                if (answeredQuestions.has('dialogue')) return;
+
+                const order = parseInt(this.getAttribute('data-order'));
+
+                if (!dialogueOrder.includes(order)) {
+                    dialogueOrder.push(order);
+                    this.style.opacity = '0.5';
+                    this.style.border = '2px solid #667eea';
+                    this.innerHTML += ' <span style="color: #667eea; font-weight: bold;">[' + dialogueOrder.length + ']</span>';
+                }
+            });
+        });
+
+        checkDialogueBtn.addEventListener('click', function() {
+            if (answeredQuestions.has('dialogue')) return;
+
+            const correctOrder = [1, 2, 3, 4];
+            const isCorrect = JSON.stringify(dialogueOrder) === JSON.stringify(correctOrder);
+
+            if (isCorrect) {
+                dialogueFeedback.textContent = '✅ Parfait ! Le dialogue est dans le bon ordre !';
+                dialogueFeedback.classList.add('correct', 'show');
+                score++;
+                updateScore();
+            } else {
+                dialogueFeedback.textContent = '❌ L\'ordre n\'est pas correct. Le bon ordre est : 1 → 2 → 3 → 4';
+                dialogueFeedback.classList.add('incorrect', 'show');
+            }
+
+            answeredQuestions.add('dialogue');
+            checkDialogueBtn.disabled = true;
+            checkCompletion();
+        });
+
+        function updateScore() {
+            document.getElementById('current-score').textContent = score;
+        }
+
+        function checkCompletion() {
+            if (answeredQuestions.size >= 10) {
+                const completionMsg = document.querySelector('.completion-message');
+                completionMsg.classList.add('show');
+                document.getElementById('final-score').textContent = score;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Récapitulatif - Serveur/Caissière</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .nav-buttons a {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .nav-buttons a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .search-bar {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .search-bar input:focus {
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-card ul {
+            list-style: none;
+        }
+
+        .category-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+
+        .category-card li:last-child {
+            border-bottom: none;
+        }
+
+        .category-card li:hover {
+            color: #667eea;
+            padding-left: 10px;
+        }
+
+        .phrase-highlight {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        .quick-ref {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .quick-ref h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .quick-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .quick-ref-item {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .quick-ref-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .flashcard-section {
+            margin-top: 40px;
+        }
+
+        .flashcard {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .flashcard:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .flashcard-front {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .flashcard-back {
+            display: none;
+            font-size: 1.2rem;
+        }
+
+        .flashcard.flipped .flashcard-front {
+            display: none;
+        }
+
+        .flashcard.flipped .flashcard-back {
+            display: block;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .flashcard-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .flashcard-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .tips-section {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
+        .tips-section h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .tips-section ul {
+            list-style: none;
+        }
+
+        .tips-section li {
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .print-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .print-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .nav-buttons, .search-bar, .flashcard-section, .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Récapitulatif Complet</h1>
+            <p>Toutes les phrases et le vocabulaire en un coup d'œil</p>
+        </header>
+
+        <div class="nav-buttons">
+            <a href="cours.html">📖 Cours</a>
+            <a href="exercices.html">✍️ Exercices</a>
+            <a href="recap.html">📋 Récapitulatif</a>
+        </div>
+
+        <div class="content">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="🔍 Rechercher une phrase ou un mot...">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <button class="print-button" onclick="window.print()">🖨️ Imprimer cette page</button>
+
+            <div class="category-grid" id="content-grid">
+                <!-- Accueil -->
+                <div class="category-card" data-category="accueil">
+                    <h3>🙋 Accueil</h3>
+                    <div class="phrase-highlight">"Bonjour ! Bienvenue !"</div>
+                    <div class="phrase-highlight">"Bonsoir, bienvenue chez nous."</div>
+                    <div class="phrase-highlight">"Combien de personnes, s'il vous plaît ?"</div>
+                    <div class="phrase-highlight">"Suivez-moi, je vais vous installer."</div>
+                    <div class="phrase-highlight">"Voici votre table."</div>
+                    <div class="phrase-highlight">"Je reviens tout de suite avec les menus."</div>
+                </div>
+
+                <!-- Commande -->
+                <div class="category-card" data-category="commande">
+                    <h3>📝 Prendre la commande</h3>
+                    <div class="phrase-highlight">"Êtes-vous prêts à commander ?"</div>
+                    <div class="phrase-highlight">"Que désirez-vous prendre ?"</div>
+                    <div class="phrase-highlight">"Et comme boisson ?"</div>
+                    <div class="phrase-highlight">"Quelle cuisson pour votre viande ?"</div>
+                    <div class="phrase-highlight">"C'est noté !"</div>
+                    <div class="phrase-highlight">"Je répète votre commande..."</div>
+                </div>
+
+                <!-- Service -->
+                <div class="category-card" data-category="service">
+                    <h3>🍽️ Pendant le service</h3>
+                    <div class="phrase-highlight">"Voici votre commande."</div>
+                    <div class="phrase-highlight">"Attention, c'est chaud !"</div>
+                    <div class="phrase-highlight">"Bon appétit !"</div>
+                    <div class="phrase-highlight">"Est-ce que tout va bien ?"</div>
+                    <div class="phrase-highlight">"Je vous ressers de l'eau ?"</div>
+                    <div class="phrase-highlight">"Désirez-vous autre chose ?"</div>
+                </div>
+
+                <!-- Addition -->
+                <div class="category-card" data-category="addition">
+                    <h3>💳 À la caisse</h3>
+                    <div class="phrase-highlight">"Vous désirez l'addition ?"</div>
+                    <div class="phrase-highlight">"Cela fait [X] euros, s'il vous plaît."</div>
+                    <div class="phrase-highlight">"En espèces ou par carte ?"</div>
+                    <div class="phrase-highlight">"Tapez votre code, s'il vous plaît."</div>
+                    <div class="phrase-highlight">"Voici votre ticket."</div>
+                    <div class="phrase-highlight">"Merci beaucoup ! Bonne journée !"</div>
+                </div>
+
+                <!-- Problèmes -->
+                <div class="category-card" data-category="problemes">
+                    <h3>⚠️ En cas de problème</h3>
+                    <div class="phrase-highlight">"Je suis désolé(e), je vérifie tout de suite."</div>
+                    <div class="phrase-highlight">"Je vais voir avec la cuisine."</div>
+                    <div class="phrase-highlight">"Un instant, s'il vous plaît."</div>
+                    <div class="phrase-highlight">"Excusez-moi pour l'attente."</div>
+                    <div class="phrase-highlight">"Nous n'avons plus de..."</div>
+                    <div class="phrase-highlight">"Ce plat n'est plus disponible."</div>
+                </div>
+
+                <!-- Vocabulaire -->
+                <div class="category-card" data-category="vocabulaire">
+                    <h3>📚 Vocabulaire essentiel</h3>
+                    <ul>
+                        <li><strong>Entrée</strong> : premier plat</li>
+                        <li><strong>Plat principal</strong> : plat de résistance</li>
+                        <li><strong>Dessert</strong> : dernier plat</li>
+                        <li><strong>L'addition</strong> : le ticket à payer</li>
+                        <li><strong>Espèces</strong> : argent liquide</li>
+                        <li><strong>Carte bancaire</strong> : CB</li>
+                        <li><strong>Le pourboire</strong> : tip</li>
+                        <li><strong>La monnaie</strong> : change</li>
+                    </ul>
+                </div>
+
+                <!-- Objets de table -->
+                <div class="category-card" data-category="objets">
+                    <h3>🍴 Objets de table</h3>
+                    <ul>
+                        <li><strong>Les couverts</strong> : couteau, fourchette, cuillère</li>
+                        <li><strong>L'assiette</strong> : plate</li>
+                        <li><strong>Le verre</strong> : glass</li>
+                        <li><strong>La serviette</strong> : napkin</li>
+                        <li><strong>La carafe d'eau</strong> : water pitcher</li>
+                    </ul>
+                </div>
+
+                <!-- Politesse -->
+                <div class="category-card" data-category="politesse">
+                    <h3>🤝 Expressions de politesse</h3>
+                    <div class="phrase-highlight">"S'il vous plaît"</div>
+                    <div class="phrase-highlight">"Merci beaucoup"</div>
+                    <div class="phrase-highlight">"De rien" / "Je vous en prie"</div>
+                    <div class="phrase-highlight">"Excusez-moi"</div>
+                    <div class="phrase-highlight">"Pardon"</div>
+                    <div class="phrase-highlight">"Avec plaisir"</div>
+                    <div class="phrase-highlight">"Tout de suite"</div>
+                    <div class="phrase-highlight">"Un instant"</div>
+                </div>
+            </div>
+
+            <!-- Flashcards -->
+            <div class="flashcard-section">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #667eea;">🎴 Cartes Mémoire</h2>
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-front">
+                        <p>Cliquez pour réviser !</p>
+                        <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">Carte 1/12</p>
+                    </div>
+                    <div class="flashcard-back"></div>
+                </div>
+                <div class="flashcard-controls">
+                    <button class="flashcard-btn" onclick="previousCard()">← Précédent</button>
+                    <button class="flashcard-btn" onclick="flipCard()">🔄 Retourner</button>
+                    <button class="flashcard-btn" onclick="nextCard()">Suivant →</button>
+                </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="quick-ref">
+                <h2>⚡ Aide-mémoire rapide</h2>
+                <div class="quick-ref-grid">
+                    <div class="quick-ref-item">
+                        <h4>Cuisson viande</h4>
+                        <p>• Bleu<br>• Saignant<br>• À point<br>• Bien cuit</p>
+                    </div>
+                    <div class="quick-ref-item">
+                        <h4>Paiement</h4>
+                        <p>• Espèces<br>• Carte bancaire<br>• Sans contact<br>• Ticket restaurant</p>
+                    </div>
+                    <div class="quick-ref-item">
+                        <h4>Moments clés</h4>
+                        <p>• Bonjour/Bonsoir<br>• Bon appétit<br>• Bonne dégustation<br>• Bonne journée</p>
+                    </div>
+                    <div class="quick-ref-item">
+                        <h4>Verbes utiles</h4>
+                        <p>• Servir<br>• Débarrasser<br>• Encaisser<br>• Recommander</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="tips-section">
+                <h3>💡 Conseils professionnels</h3>
+                <ul>
+                    <li>✓ <strong>Toujours vouvoyer</strong> les clients (vous, pas tu)</li>
+                    <li>✓ <strong>Sourire</strong> et maintenir le contact visuel</li>
+                    <li>✓ <strong>Parler clairement</strong> et à un rythme modéré</li>
+                    <li>✓ <strong>Répéter la commande</strong> pour éviter les erreurs</li>
+                    <li>✓ <strong>Rester calme</strong> même en cas de stress</li>
+                    <li>✓ <strong>Dire "Bon appétit"</strong> en servant les plats</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.category-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Flashcards
+        const flashcards = [
+            { front: "Comment accueillir un client ?", back: "Bonjour ! Bienvenue !" },
+            { front: "Comment demander le nombre de personnes ?", back: "Combien de personnes, s'il vous plaît ?" },
+            { front: "Comment proposer de prendre la commande ?", back: "Êtes-vous prêts à commander ?" },
+            { front: "Comment demander la cuisson de la viande ?", back: "Quelle cuisson pour votre viande ?" },
+            { front: "Que dire en servant un plat ?", back: "Bon appétit !" },
+            { front: "Comment demander si tout va bien ?", back: "Est-ce que tout va bien ?" },
+            { front: "Comment s'excuser pour l'attente ?", back: "Excusez-moi pour l'attente." },
+            { front: "Comment proposer l'addition ?", back: "Vous désirez l'addition ?" },
+            { front: "Comment demander le mode de paiement ?", back: "En espèces ou par carte ?" },
+            { front: "Que dire en donnant le ticket ?", back: "Voici votre ticket. Merci et bonne journée !" },
+            { front: "Comment dire qu'un plat n'est plus disponible ?", back: "Je suis désolé(e), ce plat n'est plus disponible." },
+            { front: "Que signifie 'l'addition' ?", back: "Le ticket à payer" }
+        ];
+
+        let currentCardIndex = 0;
+        let isFlipped = false;
+
+        function updateCard() {
+            const flashcard = document.getElementById('flashcard');
+            const front = flashcard.querySelector('.flashcard-front');
+            const back = flashcard.querySelector('.flashcard-back');
+
+            front.innerHTML = `
+                <p>${flashcards[currentCardIndex].front}</p>
+                <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">Carte ${currentCardIndex + 1}/${flashcards.length}</p>
+            `;
+            back.textContent = flashcards[currentCardIndex].back;
+
+            flashcard.classList.remove('flipped');
+            isFlipped = false;
+        }
+
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+            updateCard();
+        }
+
+        function previousCard() {
+            currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+            updateCard();
+        }
+
+        document.getElementById('flashcard').addEventListener('click', flipCard);
+
+        // Initialize
+        updateCard();
+    </script>
+</body>
+</html>
